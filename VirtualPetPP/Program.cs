@@ -63,24 +63,28 @@ namespace VirtualPetPP
                 switch (choice)
                 {
                     case '1':
+                        pet.HungerCount = 0;
                         Console.WriteLine($"{pet.Name} is happy, rolling and fed.");
                         PassTime(pet);
                         var needs1 = PetNeeds(pet);
                         Console.WriteLine(needs1.PetStatus);
                         break;
                     case '2':
+                        pet.Boredom = 0;
                         Console.WriteLine("Wohooo, playtime!");
                         PassTime(pet);
                         var needs2 = PetNeeds(pet);
                         Console.WriteLine(needs2.PetStatus);
                         break;
                     case '3':
+                        pet.Snuggle = 0;
                         Console.WriteLine("Purr purr, that's good!");
                         PassTime(pet);
                         var needs3 = PetNeeds(pet);
                         Console.WriteLine(needs3.PetStatus);
                         break;
                     case '4':
+                        pet.PoopTime = 0;
                         Console.WriteLine("Aww poopie time!");
                         PassTime(pet);
                         var needs4 = PetNeeds(pet);
@@ -122,22 +126,18 @@ namespace VirtualPetPP
         {
             if (pet.HungerCount >= 25)
             {
-                pet.HungerCount = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} is hungry!");
             }
             if (pet.Boredom >= 25)
             {
-                pet.Boredom = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} is bored!");
             }
             if (pet.Snuggle >= 25)
             {
-                pet.Snuggle = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} wants a snugglebuddy!");
             }
             if (pet.PoopTime >= 50)
             {
-                pet.PoopTime = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} needs to poop!");
             }
 
