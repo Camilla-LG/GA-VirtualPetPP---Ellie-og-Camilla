@@ -17,8 +17,13 @@ namespace VirtualPetPP
                 Console.WriteLine("Choose your pet:");
                 Console.WriteLine("1. Turbo");
                 Console.WriteLine("2. Marve");
+                Console.WriteLine();
+                Console.WriteLine("3. Exit Program");
+                Console.WriteLine();
+
 
                 char petChoice = Console.ReadKey().KeyChar;
+                Console.WriteLine();
 
                 switch (petChoice)
                 {
@@ -30,6 +35,8 @@ namespace VirtualPetPP
                         Console.WriteLine("You picked Marve!");
                         InteractWithPet(marve);
                         break;
+                    case '3':
+                        return;
                 }
             }
         }
@@ -40,12 +47,14 @@ namespace VirtualPetPP
             {
                 Console.WriteLine();
                 Console.WriteLine("Choose an option:");
-                Console.WriteLine("1. Feed");
-                Console.WriteLine("2. Play");
-                Console.WriteLine("3. Snuggle");
-                Console.WriteLine("4. Check if pet needs to poop");
+                Console.WriteLine($"1. Feed {pet.Name}");
+                Console.WriteLine($"2. Play with {pet.Name}");
+                Console.WriteLine($"3. Snuggle with {pet.Name}");
+                Console.WriteLine($"4. Make {pet.Name} go poop");
                 Console.WriteLine();
-                Console.WriteLine("5. Exit pet world");
+                Console.WriteLine($"5. Exit {pet.Name}'s world");
+                Console.WriteLine();
+
 
                 char choice = Console.ReadKey().KeyChar;
                 Console.WriteLine();
@@ -54,46 +63,39 @@ namespace VirtualPetPP
                 {
                     case '1':
                         PassTime(pet);
-                        pet.HungerCount = 0;
                         Console.WriteLine($"{pet.Name} is happy, rolling and fed.");
                         var needs1 = PetNeeds(pet);
                         Console.WriteLine(needs1.PetStatus);
-                        needs1.PetStatus = "";
                         break;
                     case '2':
                         PassTime(pet);
-                        pet.Boredom = 0;
                         Console.WriteLine("Wohooo, playtime!");
                         var needs2 = PetNeeds(pet);
                         Console.WriteLine(needs2.PetStatus);
-                        needs2.PetStatus = "";
                         break;
                     case '3':
                         PassTime(pet);
-                        pet.Snuggle = 0;
                         Console.WriteLine("Purr purr, that's good!");
                         var needs3 = PetNeeds(pet);
                         Console.WriteLine(needs3.PetStatus);
-                        needs3.PetStatus = "";
-                        // Kan legge inn en if for høyre eller venstre
                         break;
                     case '4':
                         PassTime(pet);
-                        pet.PoopTime = 0;
                         Console.WriteLine("Poopie");
                         var needs4 = PetNeeds(pet);
                         Console.WriteLine(needs4.PetStatus);
-                        needs4.PetStatus = "";
                         break;
                     case '5':
-                        Console.WriteLine("Pet world is shutting down. Byebye!");
+                        Console.WriteLine($"{pet.Name}'s world is shutting down. {pet.Name} says ByeBye!");
+                        Console.WriteLine();
+                        Console.WriteLine("Taking you back to choose your pet");
+                        Console.WriteLine();
                         return;
                 }
             }
         }
 
 
-        // Legge til "PassTime()" metode med random funksjonalitet.
         public static (int HungerCount, int Boredom, int Snuggle, int PoopTime) PassTime(Pet pet)
         {
             Random randomHunger= new Random();
@@ -101,9 +103,9 @@ namespace VirtualPetPP
             Random randomSnuggle= new Random();
 
                        
-            pet.HungerCount += randomHunger.Next(1, 5);
-            pet.Boredom += randomBoredom.Next(1, 5);
-            pet.Snuggle += randomSnuggle.Next(1, 5);
+            pet.HungerCount += randomHunger.Next(1, 10);
+            pet.Boredom += randomBoredom.Next(1, 10);
+            pet.Snuggle += randomSnuggle.Next(1, 10);
 
             pet.PoopTime = pet.HungerCount + pet.Boredom + pet.Snuggle;
 
@@ -112,24 +114,27 @@ namespace VirtualPetPP
 
         public static (int HungerCount, int Boredom, int Snuggle, int PoopTime, string PetStatus) PetNeeds(Pet pet)
         {
-            if (pet.HungerCount <= 10)
+            if (pet.HungerCount >= 25)
             {
+                pet.HungerCount = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet is hungry!");
             }
-            if (pet.Boredom <= 10)
+            if (pet.Boredom >= 25)
             {
+                pet.Boredom = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet is bored!");
             }
-            if (pet.Snuggle <= 10)
+            if (pet.Snuggle >= 25)
             {
+                pet.Snuggle = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet wants a snugglebuddy!");
             }
-            if (pet.PoopTime <= 15)
+            if (pet.PoopTime >= 50)
             {
+                pet.PoopTime = 0;
                 return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet needs to poop!");
             }
 
-            // If HungerCount is not 10, return other values with an empty string
             return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, string.Empty);
         }
     }
