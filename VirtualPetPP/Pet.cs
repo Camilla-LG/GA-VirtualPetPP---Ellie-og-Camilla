@@ -13,7 +13,7 @@ namespace VirtualPetPP
         public int HungerCount { get; set; }
         public int Boredom { get; set; }
         public int Snuggle { get; set; }
-        public bool PoopTime { get; set; }
+        public int PoopTime { get; set; }
 
         public Pet(
             string name,
@@ -21,7 +21,7 @@ namespace VirtualPetPP
             int hungerCount,
             int boredom,
             int snuggle,
-            bool poopTime
+            int poopTime
             )
         {
             Name = name;
