@@ -51,8 +51,9 @@ namespace VirtualPetPP
                 Console.WriteLine($"2. Play with {pet.Name}");
                 Console.WriteLine($"3. Snuggle with {pet.Name}");
                 Console.WriteLine($"4. Make {pet.Name} go poop");
+                Console.WriteLine("5. Just pass the time");
                 Console.WriteLine();
-                Console.WriteLine($"5. Exit {pet.Name}'s world");
+                Console.WriteLine($"6. Exit {pet.Name}'s world");
                 Console.WriteLine();
 
 
@@ -62,30 +63,35 @@ namespace VirtualPetPP
                 switch (choice)
                 {
                     case '1':
-                        PassTime(pet);
                         Console.WriteLine($"{pet.Name} is happy, rolling and fed.");
+                        PassTime(pet);
                         var needs1 = PetNeeds(pet);
                         Console.WriteLine(needs1.PetStatus);
                         break;
                     case '2':
-                        PassTime(pet);
                         Console.WriteLine("Wohooo, playtime!");
+                        PassTime(pet);
                         var needs2 = PetNeeds(pet);
                         Console.WriteLine(needs2.PetStatus);
                         break;
                     case '3':
-                        PassTime(pet);
                         Console.WriteLine("Purr purr, that's good!");
+                        PassTime(pet);
                         var needs3 = PetNeeds(pet);
                         Console.WriteLine(needs3.PetStatus);
                         break;
                     case '4':
+                        Console.WriteLine("Aww poopie time!");
                         PassTime(pet);
-                        Console.WriteLine("Poopie");
                         var needs4 = PetNeeds(pet);
                         Console.WriteLine(needs4.PetStatus);
                         break;
                     case '5':
+                        PassTime(pet);
+                        var needs5 = PetNeeds(pet);
+                        Console.WriteLine(needs5.PetStatus);
+                        break;
+                    case '6':
                         Console.WriteLine($"{pet.Name}'s world is shutting down. {pet.Name} says ByeBye!");
                         Console.WriteLine();
                         Console.WriteLine("Taking you back to choose your pet");
@@ -117,25 +123,25 @@ namespace VirtualPetPP
             if (pet.HungerCount >= 25)
             {
                 pet.HungerCount = 0;
-                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet is hungry!");
+                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} is hungry!");
             }
             if (pet.Boredom >= 25)
             {
                 pet.Boredom = 0;
-                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet is bored!");
+                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} is bored!");
             }
             if (pet.Snuggle >= 25)
             {
                 pet.Snuggle = 0;
-                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet wants a snugglebuddy!");
+                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} wants a snugglebuddy!");
             }
             if (pet.PoopTime >= 50)
             {
                 pet.PoopTime = 0;
-                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, "Pet needs to poop!");
+                return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} needs to poop!");
             }
 
-            return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, string.Empty);
+            return (pet.HungerCount, pet.Boredom, pet.Snuggle, pet.PoopTime, $"{pet.Name} is good for now, don't need anything");
         }
     }
 }
